@@ -1,0 +1,1 @@
+A new fucking user {{ user.username }} has joined.
