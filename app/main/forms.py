@@ -1,7 +1,8 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, IntegerField, TextAreaField, BooleanField, SelectField
-from wtforms.validators import DataRequired, Length, Email
+from wtforms.validators import DataRequired, Length, Email, Required
 from ..models import User, Role
+from flask_pagedown.fields import PageDownField
 
 class NameForm(FlaskForm):
     name = StringField('What is your name?', validators=[DataRequired()])
@@ -39,3 +40,7 @@ class EditProfileAdminForm(FlaskForm):
         if field.data != self.user.username and \
             User.query.filter_by(username=field.data).first():
             raise ValidationError('Username has been used.')
+
+class PostForm(FlaskForm):
+    body = PageDownField("What's on your mind?", validators=[Required()])
+    submit = SubmitField('Submit')
